@@ -1,10 +1,16 @@
+import 'src/index.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from 'src/App';
-import 'src/index.css';
+import { Toaster } from 'sonner';
+import { App } from 'src/App';
+import { QueryProvider } from 'src/components/common/QueryProvider';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <QueryProvider>
+      <Toaster />
+      <App />
+    </QueryProvider>
   </React.StrictMode>,
 );
