@@ -25,6 +25,8 @@
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.17.22",
     "@tanstack/react-query-devtools": "^5.17.21",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^15.0.2",
     "@types/node": "^20.11.8",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
@@ -47,7 +49,8 @@
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
-    "vite-tsconfig-paths": "^4.2.0"
+    "vite-tsconfig-paths": "^4.2.0",
+    "vitest": "^1.5.0"
   },
   "msw": {
     "workerDirectory": [
