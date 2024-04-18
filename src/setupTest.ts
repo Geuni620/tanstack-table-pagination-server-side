@@ -7,7 +7,7 @@ import '@testing-library/jest-dom/vitest';
 // https://www.npmjs.com/package/@testing-library/jest-dom#with-another-jest-compatible-expect
 import * as matchers from '@testing-library/jest-dom/matchers';
 // for msw
-import { worker } from 'src/mocks/browser';
+import { server } from 'src/mocks/browser';
 import { expect } from 'vitest';
 import { afterAll, afterEach, beforeAll } from 'vitest';
 
@@ -16,11 +16,11 @@ expect.extend(matchers);
 
 // msw setup and teardown below
 // Establish API mocking before all tests.
-beforeAll(() => worker.listen());
+beforeAll(() => server.listen());
 
 // Reset any request handlers that we may add during the tests,
 // so they don't affect other tests.
-afterEach(() => worker.resetHandlers());
+afterEach(() => server.resetHandlers());
 
 // Clean up after the tests are finished.
-afterAll(() => worker.close());
+afterAll(() => server.close());
