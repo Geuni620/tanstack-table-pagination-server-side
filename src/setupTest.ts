@@ -7,7 +7,7 @@ import '@testing-library/jest-dom/vitest';
 // https://www.npmjs.com/package/@testing-library/jest-dom#with-another-jest-compatible-expect
 import * as matchers from '@testing-library/jest-dom/matchers';
 // for msw
-import { server } from 'src/mocks/browser';
+import { server } from 'src/mocks/node';
 import { expect } from 'vitest';
 import { afterAll, afterEach, beforeAll } from 'vitest';
 
