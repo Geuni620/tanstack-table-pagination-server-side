@@ -24,14 +24,12 @@ import {
   TableRow,
 } from 'src/components/ui/table';
 
-import { supabase } from '@/utils/supabase';
+import { useLogin } from '@/hooks/useLogin';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 
 export function Dashboard() {
-  const onLogout = async () => {
-    await supabase.auth.signOut();
-  };
+  const { onLogoutClick } = useLogin();
   return (
     <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-gray-100/40 dark:bg-gray-800/40 lg:block">
@@ -114,7 +112,9 @@ export function Dashboard() {
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={onLogout}>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={onLogoutClick}>
+                  Logout
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
