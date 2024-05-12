@@ -4,8 +4,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu';
 import { Input } from 'src/components/ui/input';
@@ -24,6 +22,7 @@ import {
   TableRow,
 } from 'src/components/ui/table';
 
+import { DropDownMenu } from '@/components/dropdown';
 import { useLogin } from '@/hooks/useLogin';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
@@ -89,34 +88,8 @@ export function Dashboard() {
                 />
               </div>
             </form>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button className="rounded-full" size="icon" variant="ghost">
-                  <img
-                    alt="Avatar"
-                    className="rounded-full"
-                    height="32"
-                    src="https://avatars.githubusercontent.com/u/56650238?v=4"
-                    style={{
-                      aspectRatio: '32/32',
-                      objectFit: 'cover',
-                    }}
-                    width="32"
-                  />
-                  <span className="sr-only">Toggle user menu</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={onLogoutClick}>
-                  Logout
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+
+            <DropDownMenu onLogout={onLogoutClick} />
           </div>
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
