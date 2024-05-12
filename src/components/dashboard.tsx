@@ -29,6 +29,7 @@ type IconProps = React.SVGProps<SVGSVGElement>;
 
 export function Dashboard() {
   const { onLogoutClick } = useLogin();
+
   return (
     <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-gray-100/40 dark:bg-gray-800/40 lg:block">

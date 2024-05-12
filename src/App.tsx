@@ -1,10 +1,13 @@
 import { Dashboard } from '@/components/dashboard';
 import { Login } from '@/components/login';
-
-import { useLogin } from './hooks/useLogin';
+import { useLogin } from '@/hooks/useLogin';
+import { useTaskGetQuery } from '@/hooks/useTaskGetQuery';
 
 export const App = () => {
   const { session, onLoginClick } = useLogin();
+  const tasks = useTaskGetQuery();
+
+  console.log('tasks', tasks.data);
 
   if (!session)
     return (
