@@ -7,9 +7,13 @@ import {
   CardTitle,
 } from 'src/components/ui/card';
 
-export function Login() {
+type LoginProps = {
+  onClick: () => void;
+};
+
+export function Login({ onClick }: LoginProps) {
   return (
-    <Card className="mx-auto max-w-sm">
+    <Card onClick={onClick} className="mx-auto max-w-sm">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>Sign in with your GitHub account</CardDescription>
