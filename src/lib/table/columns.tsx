@@ -32,12 +32,12 @@ export const columns = [
     header: 'Task',
     cell: (props) => <p>{props.getValue()}</p>,
   }),
-  columnHelper.accessor('statusName', {
-    header: 'Status',
+  columnHelper.accessor('notes', {
+    header: 'Notes',
     cell: (props) => <p>{props.getValue()}</p>,
   }),
-  columnHelper.accessor('date', {
-    header: 'Due',
+  columnHelper.accessor('statusName', {
+    header: 'Status',
     cell: (props) => <p>{props.getValue()}</p>,
   }),
 ];
