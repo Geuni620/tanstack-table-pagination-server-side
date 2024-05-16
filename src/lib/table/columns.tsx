@@ -3,13 +3,9 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox';
 import { type TaskProps } from '@/hooks/useTaskGetQuery';
 
-type ExtendedTaskProps = TaskProps & {
-  select: string;
-};
-
-const columnHelper = createColumnHelper<ExtendedTaskProps>();
+const columnHelper = createColumnHelper<TaskProps>();
 export const columns = [
-  columnHelper.accessor('select', {
+  columnHelper.accessor('done', {
     header: ({ table }) => (
       <Checkbox
         checked={

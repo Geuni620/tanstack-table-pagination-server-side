@@ -21,9 +21,14 @@ import { useLogin } from '@/hooks/useLogin';
 import { type TaskProps } from '@/hooks/useTaskGetQuery';
 import { columns } from '@/lib/table/columns';
 import { DataTable } from '@/lib/table/data-table';
-// @fixme 타입스크립트 Table 수정
 
-export function Dashboard({ tableData }) {
+type TableDataProps<TData> = {
+  tableData: TData[];
+};
+
+export function Dashboard<TData extends TaskProps>({
+  tableData,
+}: TableDataProps<TData>) {
   const { onLogoutClick } = useLogin();
 
   return (
@@ -91,7 +96,7 @@ export function Dashboard({ tableData }) {
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
           <div className="rounded-lg border p-2 shadow-sm">
-            <DataTable columns={columns} data={tableData} />
+            <DataTable data={tableData} columns={columns} />
           </div>
           <Pagination>
             <PaginationContent>
