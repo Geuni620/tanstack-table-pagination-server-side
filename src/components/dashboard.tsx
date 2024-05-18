@@ -88,8 +88,8 @@ export function Dashboard() {
             <div className="rounded-lg border p-2 shadow-sm">
               <DataTable
                 data={tasks.data.result}
-                total={tasks.data.count}
-                columns={columns ?? 0}
+                total={tasks.data.count ?? 0}
+                columns={columns}
               />
             </div>
           </main>
