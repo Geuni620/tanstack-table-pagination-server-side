@@ -1,11 +1,11 @@
-import { createColumnHelper } from '@tanstack/react-table';
+import { type ColumnDef } from '@tanstack/react-table';
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { type TaskProps } from '@/hooks/useTaskGetQuery';
 
-const columnHelper = createColumnHelper<TaskProps>();
-export const columns = [
-  columnHelper.accessor('done', {
+export const columns: ColumnDef<TaskProps>[] = [
+  {
+    accessorKey: 'done',
     header: ({ table }) => (
       <Checkbox
         checked={
@@ -23,17 +23,22 @@ export const columns = [
         aria-label="Select row"
       />
     ),
-  }),
-  columnHelper.accessor('task', {
+  },
+  {
+    accessorKey: 'task',
     header: 'Task',
-    cell: (props) => <p>{props.getValue()}</p>,
-  }),
-  columnHelper.accessor('notes', {
+    cell: ({ row }) => {
+      return <div>{row.getValue('task')}</div>;
+    },
+  },
+  {
+    accessorKey: 'notes',
     header: 'Notes',
-    cell: (props) => <p>{props.getValue()}</p>,
-  }),
-  columnHelper.accessor('statusName', {
+    cell: ({ row }) => <p>{row.getValue('notes')}</p>,
+  },
+  {
+    accessorKey: 'statusName',
     header: 'Status',
-    cell: (props) => <p>{props.getValue()}</p>,
-  }),
+    cell: ({ row }) => <p>{row.getValue('statusName')}</p>,
+  },
 ];
