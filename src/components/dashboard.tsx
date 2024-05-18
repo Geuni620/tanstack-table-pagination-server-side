@@ -1,11 +1,5 @@
 import { Badge } from 'src/components/ui/badge';
 import { Input } from 'src/components/ui/input';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationPrevious,
-} from 'src/components/ui/pagination';
 
 import { DropDownMenu } from '@/components/dropdown';
 import {
