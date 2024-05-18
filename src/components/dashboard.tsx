@@ -98,13 +98,6 @@ export function Dashboard<TData extends TaskProps>({
           <div className="rounded-lg border p-2 shadow-sm">
             <DataTable data={tableData} columns={columns} />
           </div>
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
         </main>
       </div>
     </div>
