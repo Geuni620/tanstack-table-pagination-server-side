@@ -12,12 +12,14 @@ import {
   UsersIcon,
 } from '@/components/icons';
 import { useLogin } from '@/hooks/useLogin';
+import { usePagination } from '@/hooks/usePagination';
 import { useTaskGetQuery } from '@/hooks/useTaskGetQuery';
 import { columns } from '@/lib/table/columns';
 import { DataTable } from '@/lib/table/data-table';
 
 export function Dashboard() {
   const { onLogoutClick } = useLogin();
+  const { pagination, onPaginationChange } = usePagination();
   const tasks = useTaskGetQuery();
 
   if (tasks.data)
@@ -90,6 +92,8 @@ export function Dashboard() {
                 data={tasks.data.result}
                 total={tasks.data.count ?? 0}
                 columns={columns}
+                pagination={pagination}
+                onPaginationChange={onPaginationChange}
               />
             </div>
           </main>
