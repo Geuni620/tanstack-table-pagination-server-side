@@ -20,7 +20,11 @@ import { DataTable } from '@/lib/table/data-table';
 export function Dashboard() {
   const { onLogoutClick } = useLogin();
   const { pagination, onPaginationChange } = usePagination();
-  const tasks = useTaskGetQuery();
+
+  const tasks = useTaskGetQuery({
+    page: pagination.pageIndex,
+    size: pagination.pageSize,
+  });
 
   if (tasks.data)
     return (
