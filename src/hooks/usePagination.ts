@@ -1,4 +1,4 @@
-import { type PaginationState } from '@tanstack/react-table';
+// import { type PaginationState } from '@tanstack/react-table';
 import { useState } from 'react';
 
 export type Pagination = {
@@ -14,23 +14,27 @@ export const usePagination = () => {
     pageSize: 20,
   });
 
-  const onPaginationChange: OnChangeFn<PaginationState> = (updaterOrValue) => {
-    /**
-     * @Fixme 여기 타입 검토
-     */
-    setPagination((prevState) => {
-      if (typeof updaterOrValue === 'function') {
-        return (
-          updaterOrValue as (prevState: PaginationState) => PaginationState
-        )(prevState);
-      }
+  /**
+   * @reference
+   * https://stackoverflow.com/questions/74721400/tanstack-table-how-can-i-use-redux-action-in-onpaginationchange-instead-of-set
+   */
+  //   const onPaginationChange: OnChangeFn<PaginationState> = (updaterOrValue) => {
+  //     /**
+  //      * @Fixme 여기 타입 검토
+  //      */
+  //     setPagination((prevState) => {
+  //       if (typeof updaterOrValue === 'function') {
+  //         return (
+  //           updaterOrValue as (prevState: PaginationState) => PaginationState
+  //         )(prevState);
+  //       }
 
-      return updaterOrValue;
-    });
-  };
+  //       return updaterOrValue;
+  //     });
+  //   };
 
   return {
     pagination,
-    onPaginationChange,
+    onPaginationChange: setPagination,
   };
 };
