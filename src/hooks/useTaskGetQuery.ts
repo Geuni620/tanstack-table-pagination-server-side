@@ -4,7 +4,6 @@ import camelcaseKeys from 'camelcase-keys';
 import { supabase } from '@/utils/supabase';
 
 const TASK = 'tasks_rls';
-const QUERYKEYS = [TASK];
 
 export type TaskProps = {
   date: string;
@@ -26,9 +25,7 @@ export type TaskResponse = {
 
 const fetchTask = async ({
   queryKey,
-}: QueryFunctionContext<
-  [string, { page: number; size: number }]
->): Promise<TaskResponse> => {
+}: QueryFunctionContext<QueryKeyFactory>): Promise<TaskResponse> => {
   console.log('queryKey', queryKey);
   const [, { page, size }] = queryKey;
 
@@ -58,10 +55,11 @@ type props = {
   size: number;
 };
 
+type QueryKeyFactory = [string, { page: number; size: number }];
+
 export const useTaskGetQuery = ({ page, size }: props) => {
-  return useQuery<TaskResponse>({
-    // FIXME: queryKey 이렇게 구성하는게 맞을까?
-    queryKey: [...QUERYKEYS, { page, size }] as const,
+  return useQuery<TaskResponse, Error, TaskResponse, QueryKeyFactory>({
+    queryKey: [TASK, { page, size }] as const,
     queryFn: fetchTask,
   });
 };
