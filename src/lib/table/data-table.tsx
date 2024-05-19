@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/table';
 import { type OnChangeFn, type Pagination } from '@/hooks/usePagination';
 import { DataTablePagination } from '@/lib/table/data-table-pagination';
+import { DataTableSelection } from '@/lib/table/data-table-selection';
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
@@ -36,7 +37,6 @@ export const DataTable = <TData, TValue>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    // getPaginationRowModel: getPaginationRowModel(),
     manualPagination: true,
     rowCount: total,
     onPaginationChange,
@@ -96,6 +96,7 @@ export const DataTable = <TData, TValue>({
         </Table>
       </div>
       <DataTablePagination table={table} />
+      {/* <DataTableSelection table={table} /> */}
     </div>
   );
 };

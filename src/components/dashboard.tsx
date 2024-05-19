@@ -75,6 +75,8 @@ export function Dashboard() {
             <div className="flex-1">
               <h1 className="text-lg font-semibold">Recent Orders</h1>
             </div>
+
+            {/* FIXME 검색버튼 */}
             <div className="flex flex-1 items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
               <form className="ml-auto flex-1 sm:flex-initial">
                 <div className="relative">
@@ -86,7 +88,6 @@ export function Dashboard() {
                   />
                 </div>
               </form>
-
               <DropDownMenu onLogout={onLogoutClick} />
             </div>
           </header>
