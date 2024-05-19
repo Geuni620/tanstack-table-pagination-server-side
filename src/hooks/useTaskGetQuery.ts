@@ -1,4 +1,8 @@
-import { QueryFunctionContext, useQuery } from '@tanstack/react-query';
+import {
+  keepPreviousData,
+  QueryFunctionContext,
+  useQuery,
+} from '@tanstack/react-query';
 import camelcaseKeys from 'camelcase-keys';
 
 import { supabase } from '@/utils/supabase';
@@ -61,5 +65,6 @@ export const useTaskGetQuery = ({ page, size }: props) => {
   return useQuery<TaskResponse, Error, TaskResponse, QueryKeyFactory>({
     queryKey: [TASK, { page, size }] as const,
     queryFn: fetchTask,
+    placeholderData: keepPreviousData,
   });
 };
