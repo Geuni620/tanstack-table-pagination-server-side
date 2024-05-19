@@ -14,6 +14,15 @@ export const usePagination = () => {
     pageSize: 20,
   });
 
+  const onPageSizeChange = (pageSize: number) => {
+    setPagination((prev) => {
+      return {
+        ...prev,
+        pageSize,
+      };
+    });
+  };
+
   /**
    * @reference
    * https://stackoverflow.com/questions/74721400/tanstack-table-how-can-i-use-redux-action-in-onpaginationchange-instead-of-set
@@ -36,5 +45,6 @@ export const usePagination = () => {
   return {
     pagination,
     onPaginationChange: setPagination,
+    onPageSizeChange: onPageSizeChange,
   };
 };

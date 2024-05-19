@@ -11,6 +11,7 @@ import {
   ShoppingCartIcon,
   UsersIcon,
 } from '@/components/icons';
+import { PageSize } from '@/components/pageSize';
 import { useLogin } from '@/hooks/useLogin';
 import { usePagination } from '@/hooks/usePagination';
 import { useTaskGetQuery } from '@/hooks/useTaskGetQuery';
@@ -19,7 +20,7 @@ import { DataTable } from '@/lib/table/data-table';
 
 export function Dashboard() {
   const { onLogoutClick } = useLogin();
-  const { pagination, onPaginationChange } = usePagination();
+  const { pagination, onPaginationChange, onPageSizeChange } = usePagination();
 
   const tasks = useTaskGetQuery({
     page: pagination.pageIndex,
@@ -88,6 +89,10 @@ export function Dashboard() {
                   />
                 </div>
               </form>
+              <PageSize
+                pageSize={pagination.pageSize}
+                onPageSizeChange={onPageSizeChange}
+              />
               <DropDownMenu onLogout={onLogoutClick} />
             </div>
           </header>
