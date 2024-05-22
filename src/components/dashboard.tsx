@@ -22,8 +22,6 @@ export function Dashboard() {
   const { pagination, onPaginationChange, onPageSizeChange } = usePagination();
   const { search, onSearchChange } = useSearchCondition();
 
-  console.log('search', search);
-
   const tasks = useTaskGetQuery({
     page: pagination.pageIndex,
     size: pagination.pageSize,
