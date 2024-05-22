@@ -2,9 +2,9 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { type PaginationState } from '@tanstack/react-table';
 
 import {
   Table,
@@ -14,22 +14,32 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { type OnChangeFn, type Pagination } from '@/hooks/usePagination';
 import { DataTablePagination } from '@/lib/table/data-table-pagination';
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  total: number;
+  pagination: Pagination;
+  onPaginationChange: OnChangeFn<PaginationState>;
 };
 
 export const DataTable = <TData, TValue>({
   data,
   columns,
+  total,
+  pagination,
+  onPaginationChange,
 }: DataTableProps<TData, TValue>) => {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true,
+    rowCount: total,
+    onPaginationChange,
+    state: { pagination },
   });
 
   return (

@@ -1,11 +1,9 @@
 import { Dashboard } from '@/components/dashboard';
 import { Login } from '@/components/login';
 import { useLogin } from '@/hooks/useLogin';
-import { useTaskGetQuery } from '@/hooks/useTaskGetQuery';
 
 export const App = () => {
   const { session, onLoginClick } = useLogin();
-  const tasks = useTaskGetQuery();
 
   if (!session)
     return (
@@ -14,9 +12,5 @@ export const App = () => {
       </div>
     );
 
-  if (tasks.data) {
-    return <Dashboard tableData={tasks.data} />;
-  }
-
-  return <div>...Loading</div>;
+  return <Dashboard />;
 };
