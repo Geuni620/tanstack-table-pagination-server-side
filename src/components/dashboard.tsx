@@ -4,13 +4,12 @@ import {
   LineChartIcon,
   Package2Icon,
   PackageIcon,
-  SearchIcon,
   ShoppingCartIcon,
   UsersIcon,
 } from '@/components/icons';
 import { PageSize } from '@/components/pageSize';
+import { Search } from '@/components/search';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
 import { useLogin } from '@/hooks/useLogin';
 import { usePagination } from '@/hooks/usePagination';
 import { useSearchCondition } from '@/hooks/useSearchCondition';
@@ -82,18 +81,7 @@ export function Dashboard() {
             </div>
 
             <div className="flex flex-1 items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-              <form className="ml-auto flex-1 sm:flex-initial">
-                <div className="relative">
-                  <SearchIcon className="absolute left-2.5 top-2.5 size-4 text-gray-500 dark:text-gray-400" />
-                  <Input
-                    className="bg-white pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-                    placeholder="Search orders..."
-                    type="search"
-                    value={search}
-                    onChange={(e) => onSearchChange(e.target.value)}
-                  />
-                </div>
-              </form>
+              <Search search={search} onSearchChange={onSearchChange} />
               <PageSize
                 pageSize={pagination.pageSize}
                 onPageSizeChange={onPageSizeChange}
