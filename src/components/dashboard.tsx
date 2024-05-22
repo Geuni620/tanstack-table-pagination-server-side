@@ -1,6 +1,3 @@
-import { Badge } from 'src/components/ui/badge';
-import { Input } from 'src/components/ui/input';
-
 import { DropDownMenu } from '@/components/dropdown';
 import {
   HomeIcon,
@@ -12,8 +9,11 @@ import {
   UsersIcon,
 } from '@/components/icons';
 import { PageSize } from '@/components/pageSize';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import { useLogin } from '@/hooks/useLogin';
 import { usePagination } from '@/hooks/usePagination';
+import { useSearchCondition } from '@/hooks/useSearchCondition';
 import { useTaskGetQuery } from '@/hooks/useTaskGetQuery';
 import { columns } from '@/lib/table/columns';
 import { DataTable } from '@/lib/table/data-table';
@@ -21,10 +21,14 @@ import { DataTable } from '@/lib/table/data-table';
 export function Dashboard() {
   const { onLogoutClick } = useLogin();
   const { pagination, onPaginationChange, onPageSizeChange } = usePagination();
+  const { search, onSearchChange } = useSearchCondition();
+
+  console.log('search', search);
 
   const tasks = useTaskGetQuery({
     page: pagination.pageIndex,
     size: pagination.pageSize,
+    search,
   });
 
   if (tasks.data)
@@ -77,7 +81,6 @@ export function Dashboard() {
               <h1 className="text-lg font-semibold">Recent Orders</h1>
             </div>
 
-            {/* FIXME 검색버튼 */}
             <div className="flex flex-1 items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
               <form className="ml-auto flex-1 sm:flex-initial">
                 <div className="relative">
@@ -86,6 +89,8 @@ export function Dashboard() {
                     className="bg-white pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
                     placeholder="Search orders..."
                     type="search"
+                    value={search}
+                    onChange={(e) => onSearchChange(e.target.value)}
                   />
                 </div>
               </form>
