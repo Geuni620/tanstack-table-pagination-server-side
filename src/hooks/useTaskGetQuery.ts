@@ -27,11 +27,10 @@ export type TaskResponse = {
 // 총 몇개씩 가져올 것 인지 size
 // 검색 조건에 따라 총 몇개의 데이터를 가져오는지 count가 있음
 const fetchTask = async ({
-  queryKey,
-}: QueryFunctionContext<QueryKeyFactory>): Promise<TaskResponse> => {
-  const [, { page, size, search }] = queryKey;
-  console.log('search', search);
-
+  queryKey: [{ page, size, search }],
+}: QueryFunctionContext<
+  ReturnType<(typeof taskKeys)['task']>
+>): Promise<TaskResponse> => {
   const start = page * size;
   const end = start + size - 1;
 
@@ -67,11 +66,31 @@ type props = {
   search: string;
 };
 
-type QueryKeyFactory = [string, { page: number; size: number; search: string }];
+const taskKeys = {
+  all: [{ task: TASK }] as const,
+  task: ({ page, size, search }: props) =>
+    [
+      {
+        ...taskKeys.all[0],
+        page,
+        size,
+        search,
+      },
+    ] as const,
+};
 
 export const useTaskGetQuery = ({ page, size, search }: props) => {
-  return useQuery<TaskResponse, Error, TaskResponse, QueryKeyFactory>({
-    queryKey: [TASK, { page, size, search }] as const,
+  return useQuery<
+    TaskResponse,
+    Error,
+    TaskResponse,
+    ReturnType<(typeof taskKeys)['task']>
+  >({
+    queryKey: taskKeys.task({
+      page,
+      search,
+      size,
+    }),
     queryFn: fetchTask,
     placeholderData: keepPreviousData,
   });
