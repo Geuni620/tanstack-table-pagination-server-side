@@ -48,8 +48,6 @@ const fetchTask = async ({
 
   const { data, count, error } = await query;
 
-  console.log('data', data);
-
   if (error) {
     throw new Error(error.message);
   }
