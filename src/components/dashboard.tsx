@@ -1,3 +1,5 @@
+import { useDebounce } from '@uidotdev/usehooks';
+
 import { DropDownMenu } from '@/components/dropdown';
 import {
   HomeIcon,
@@ -21,11 +23,12 @@ export function Dashboard() {
   const { onLogoutClick } = useLogin();
   const { pagination, onPaginationChange, onPageSizeChange } = usePagination();
   const { search, onSearchChange } = useSearchCondition();
+  const debouncedSearch = useDebounce(search, 300);
 
   const tasks = useTaskGetQuery({
     page: pagination.pageIndex,
     size: pagination.pageSize,
-    search,
+    search: debouncedSearch,
   });
 
   if (tasks.data)
