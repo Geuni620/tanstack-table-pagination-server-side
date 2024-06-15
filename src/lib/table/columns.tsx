@@ -1,6 +1,16 @@
 import { type ColumnDef } from '@tanstack/react-table';
+import { MoreHorizontal } from 'lucide-react';
 
+import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { type TaskProps } from '@/hooks/useTaskGetQuery';
 
 export const columns: ColumnDef<TaskProps>[] = [
@@ -40,5 +50,29 @@ export const columns: ColumnDef<TaskProps>[] = [
     accessorKey: 'statusName',
     header: 'Status',
     cell: ({ row }) => <p>{row.getValue('statusName')}</p>,
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => {
+      const payment = row.original;
+      console.log('payment', payment);
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="size-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="size-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem>Delete</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
   },
 ];
