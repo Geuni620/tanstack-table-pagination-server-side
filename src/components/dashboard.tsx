@@ -1,17 +1,27 @@
 import { useDebounce } from '@uidotdev/usehooks';
 
 import { DropDownMenu } from '@/components/dropdown';
-import {
-  HomeIcon,
-  LineChartIcon,
-  Package2Icon,
-  PackageIcon,
-  ShoppingCartIcon,
-  UsersIcon,
-} from '@/components/icons';
+import { HomeIcon, Package2Icon } from '@/components/icons';
 import { PageSize } from '@/components/pageSize';
 import { Search } from '@/components/search';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { useLogin } from '@/hooks/useLogin';
 import { usePagination } from '@/hooks/usePagination';
 import { useSearchCondition } from '@/hooks/useSearchCondition';
@@ -31,6 +41,8 @@ export function Dashboard() {
     search: debouncedSearch,
   });
 
+  console.log('tasks', tasks);
+
   if (tasks.data)
     return (
       <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[280px_1fr]">
@@ -47,25 +59,6 @@ export function Dashboard() {
                 <a className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
                   <HomeIcon className="size-4" />
                   Home
-                </a>
-                <a className="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50">
-                  <ShoppingCartIcon className="size-4" />
-                  Orders
-                  <Badge className="ml-auto flex size-6 shrink-0 items-center justify-center rounded-full">
-                    12
-                  </Badge>
-                </a>
-                <a className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
-                  <PackageIcon className="size-4" />
-                  Products
-                </a>
-                <a className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
-                  <UsersIcon className="size-4" />
-                  Customers
-                </a>
-                <a className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
-                  <LineChartIcon className="size-4" />
-                  Analytics
                 </a>
               </nav>
             </div>
@@ -92,6 +85,60 @@ export function Dashboard() {
           </header>
           <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
             <div className="rounded-lg border p-2 shadow-sm">
+              <div className="flex w-full justify-end">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="mx-0 my-2">Add Task</Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Add New Task</DialogTitle>
+                      <DialogDescription>
+                        Enter the details for the new task.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <form className="space-y-4">
+                      <div>
+                        <Label htmlFor="taskName">Task</Label>
+                        <Input
+                          id="taskName"
+                          name="taskName"
+                          type="text"
+                          className="mt-2"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="taskNotes">Notes</Label>
+                        <Input
+                          id="taskNotes"
+                          name="taskNotes"
+                          type="text"
+                          className="mt-2"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="taskStatus">Status</Label>
+                        <Select>
+                          <SelectTrigger className="mt-2">
+                            <SelectValue placeholder="Select status" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="pending">Pending</SelectItem>
+                            <SelectItem value="inProgress">
+                              In Progress
+                            </SelectItem>
+                            <SelectItem value="completed">Completed</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="flex justify-end">
+                        <Button type="submit">Submit</Button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </Dialog>
+              </div>
               <DataTable
                 data={tasks.data.result}
                 total={tasks.data.count ?? 0}
