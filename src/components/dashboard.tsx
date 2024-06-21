@@ -4,30 +4,14 @@ import { DropDownMenu } from '@/components/dropdown';
 import { HomeIcon, Package2Icon } from '@/components/icons';
 import { PageSize } from '@/components/pageSize';
 import { Search } from '@/components/search';
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+
 import { useLogin } from '@/hooks/useLogin';
 import { usePagination } from '@/hooks/usePagination';
 import { useSearchCondition } from '@/hooks/useSearchCondition';
 import { useTaskGetQuery } from '@/hooks/useTaskGetQuery';
 import { columns } from '@/lib/table/columns';
 import { DataTable } from '@/lib/table/data-table';
+import { DialogComponents as Dialog } from '@/components/dialog';
 
 export function Dashboard() {
   const { onLogoutClick } = useLogin();
@@ -40,8 +24,6 @@ export function Dashboard() {
     size: pagination.pageSize,
     search: debouncedSearch,
   });
-
-  console.log('tasks', tasks);
 
   if (tasks.data)
     return (
@@ -85,60 +67,7 @@ export function Dashboard() {
           </header>
           <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
             <div className="rounded-lg border p-2 shadow-sm">
-              <div className="flex w-full justify-end">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button className="mx-0 my-2">Add Task</Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Add New Task</DialogTitle>
-                      <DialogDescription>
-                        Enter the details for the new task.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <form className="space-y-4">
-                      <div>
-                        <Label htmlFor="taskName">Task</Label>
-                        <Input
-                          id="taskName"
-                          name="taskName"
-                          type="text"
-                          className="mt-2"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="taskNotes">Notes</Label>
-                        <Input
-                          id="taskNotes"
-                          name="taskNotes"
-                          type="text"
-                          className="mt-2"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="taskStatus">Status</Label>
-                        <Select>
-                          <SelectTrigger className="mt-2">
-                            <SelectValue placeholder="Select status" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="pending">Pending</SelectItem>
-                            <SelectItem value="inProgress">
-                              In Progress
-                            </SelectItem>
-                            <SelectItem value="completed">Completed</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="flex justify-end">
-                        <Button type="submit">Submit</Button>
-                      </div>
-                    </form>
-                  </DialogContent>
-                </Dialog>
-              </div>
+              <Dialog />
               <DataTable
                 data={tasks.data.result}
                 total={tasks.data.count ?? 0}

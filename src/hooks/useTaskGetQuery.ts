@@ -4,10 +4,10 @@ import {
   useQuery,
 } from '@tanstack/react-query';
 import camelcaseKeys from 'camelcase-keys';
+import { taskKeys } from '@/hooks/queryKey';
 
 import { supabase } from '@/utils/supabase';
-
-const TASK = 'tasks_rls';
+import { TASK } from './queryKey';
 
 export type TaskProps = {
   date: string;
@@ -22,6 +22,12 @@ export type TaskProps = {
 export type TaskResponse = {
   result: TaskProps[];
   count: number | null;
+};
+
+type props = {
+  page: number;
+  size: number;
+  search: string;
 };
 
 // 총 몇개씩 가져올 것 인지 size
@@ -56,25 +62,6 @@ const fetchTask = async ({
     result: camelcaseKeys(data, { deep: true }),
     count,
   };
-};
-
-type props = {
-  page: number;
-  size: number;
-  search: string;
-};
-
-const taskKeys = {
-  all: [{ task: TASK }] as const,
-  task: ({ page, size, search }: props) =>
-    [
-      {
-        ...taskKeys.all[0],
-        page,
-        size,
-        search,
-      },
-    ] as const,
 };
 
 export const useTaskGetQuery = ({ page, size, search }: props) => {
