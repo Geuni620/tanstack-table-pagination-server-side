@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/utils/supabase';
-import { taskKeys } from '@/hooks/queryKey';
+import { taskKeys, TASK } from '@/hooks/queryKey';
 import { createStatusMapper } from '@/utils/status-map';
 
 export const TASK_STATUS = {
@@ -15,7 +15,7 @@ type Task = Record<string, string>;
 const addTask = async (task: Task) => {
   const statusId = createStatusMapper(TASK_STATUS, task.taskStatus);
 
-  const { data, error } = await supabase.from('tasks').insert([
+  const { data, error } = await supabase.from(TASK).insert([
     {
       task: task.taskName,
       status_id: statusId,
