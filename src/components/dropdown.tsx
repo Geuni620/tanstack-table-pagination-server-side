@@ -7,12 +7,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu';
+import { useLogin } from '@/hooks/useLogin';
 
 type Props = {
   onLogout: () => void;
 };
 
 export const DropDownMenu: React.FC<Props> = ({ onLogout }) => {
+  const { session } = useLogin();
+  const avatar = session?.user.user_metadata.avatar_url;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -21,7 +24,7 @@ export const DropDownMenu: React.FC<Props> = ({ onLogout }) => {
             alt="Avatar"
             className="rounded-full"
             height="32"
-            src="https://avatars.githubusercontent.com/u/56650238?v=4"
+            src={avatar}
             style={{
               aspectRatio: '32/32',
               objectFit: 'cover',
