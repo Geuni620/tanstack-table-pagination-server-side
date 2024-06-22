@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { type TaskProps } from '@/hooks/useTaskGetQuery';
+import { useTaskDeleteMutation } from '@/hooks/useTaskDeleteMutation';
 
 export const columns: ColumnDef<TaskProps>[] = [
   {
@@ -53,7 +54,15 @@ export const columns: ColumnDef<TaskProps>[] = [
   },
   {
     id: 'actions',
-    cell: () => {
+    cell: ({ row }) => {
+      const selectedTask = row.original;
+      console.log('selectedTask', selectedTask);
+      const deleteMutation = useTaskDeleteMutation();
+
+      const onDelete = ({ id }: { id: string }) => {
+        deleteMutation.mutate(id);
+      };
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -66,7 +75,9 @@ export const columns: ColumnDef<TaskProps>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => onDelete({ id: selectedTask.id })}>
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

@@ -11,7 +11,7 @@ import { supabase } from '@/utils/supabase';
 export type TaskProps = {
   date: string;
   done: boolean;
-  id: number;
+  id: string;
   notes: string;
   statusId: number;
   statusName: string;
