@@ -18,8 +18,8 @@ import {
 } from '@/components/ui/select';
 import { useForm } from '@/hooks/useForm';
 import { FormEvent } from 'react';
-import { useTaskPostMutation } from '@/hooks/useTakstPostMutation';
-import { TASK_STATUS } from '@/hooks/useTakstPostMutation';
+import { useTaskPostMutation } from '@/hooks/useTaskPostMutation';
+import { TASK_STATUS } from '@/hooks/useTaskPostMutation';
 
 const initialFormValues = {
   taskName: '',
