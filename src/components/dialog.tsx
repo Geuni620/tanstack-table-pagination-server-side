@@ -18,19 +18,24 @@ import {
 } from '@/components/ui/select';
 import { useForm } from '@/hooks/useForm';
 import { FormEvent } from 'react';
+import { useTaskPostMutation } from '@/hooks/useTakstPostMutation';
+import { TASK_STATUS } from '@/hooks/useTakstPostMutation';
+
+const initialFormValues = {
+  taskName: '',
+  taskNotes: '',
+  taskStatus: '',
+};
 
 export const DialogComponents = () => {
-  const initialFormValues = {
-    taskName: '',
-    taskNotes: '',
-    taskStatus: '',
-  };
+  const addTask = useTaskPostMutation();
 
   const { formValues, handleChange, handleSelectChange, resetForm } =
     useForm(initialFormValues);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+    addTask.mutate(formValues);
 
     resetForm();
   };
@@ -84,9 +89,11 @@ export const DialogComponents = () => {
                   <SelectValue placeholder="Select status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="pending">Pending</SelectItem>
-                  <SelectItem value="inProgress">In Progress</SelectItem>
-                  <SelectItem value="completed">Completed</SelectItem>
+                  {Object.entries(TASK_STATUS).map(([key, value]) => (
+                    <SelectItem key={value.id} value={value.name}>
+                      {key}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

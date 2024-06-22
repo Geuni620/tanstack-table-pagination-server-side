@@ -53,10 +53,7 @@ export const columns: ColumnDef<TaskProps>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => {
-      const payment = row.original;
-      console.log('payment', payment);
-
+    cell: () => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
