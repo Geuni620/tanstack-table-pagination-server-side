@@ -16,6 +16,7 @@ export type TaskProps = {
   statusId: number;
   statusName: string;
   task: string;
+  userId: string;
 };
 
 export type TaskResponse = {

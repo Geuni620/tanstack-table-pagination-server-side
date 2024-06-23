@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { type TaskProps } from '@/hooks/useTaskGetQuery';
 import { useTaskDeleteMutation } from '@/hooks/useTaskDeleteMutation';
+import { useLogin } from '@/hooks/useLogin';
 
 export const columns: ColumnDef<TaskProps>[] = [
   {
@@ -34,6 +35,20 @@ export const columns: ColumnDef<TaskProps>[] = [
         aria-label="Select row"
       />
     ),
+  },
+  {
+    accessorKey: 'author',
+    header: 'Author',
+    cell: ({ row }) => {
+      const userId = row.original.userId;
+      const { session } = useLogin();
+
+      const isMyTask = session?.user?.id === userId;
+      const authorText = isMyTask ? '내가 작성함' : '내가 작성안함';
+      const textColor = isMyTask ? 'text-blue-600' : 'text-red-600';
+
+      return <div className={`font-medium ${textColor}`}>{authorText}</div>;
+    },
   },
   {
     accessorKey: 'task',
