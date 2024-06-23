@@ -56,6 +56,7 @@ export const columns: ColumnDef<TaskProps>[] = [
     id: 'actions',
     cell: ({ row }) => {
       const selectedTask = row.original;
+
       console.log('selectedTask', selectedTask);
       const deleteMutation = useTaskDeleteMutation();
 
